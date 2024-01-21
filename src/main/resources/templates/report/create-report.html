@@ -47,7 +47,7 @@
 <body>
 
 <div class="container">
-    <form action="#" th:action="@{/submit-form}" th:object="${report}" method="post">
+    <form action="#" th:action="@{/report/submit-create-report}" th:object="${report}" method="post">
         <h2 class="mb-4">Report Form</h2>
 
         <div class="form-group">
@@ -60,7 +60,7 @@
             <select class="form-control" id="weekday" th:field="*{weekday}" required>
                 <option th:value="''" th:text="Select"></option>
                 <option th:each="weekday : ${weekdays}"
-                        th:value="${weekday.value}"
+                        th:value="${weekday}"
                         th:text="${weekday.value}"></option>
             </select>
         </div>
