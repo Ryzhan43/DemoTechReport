@@ -4,35 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Form</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Report Form</h2>
+<div class="container">
+    <form action="#" th:action="@{/submit-form}" th:object="${report}" method="post">
+        <h2 class="mb-4">Report Form</h2>
 
-<form action="#" th:action="@{/submit-form}" th:object="${report}" method="post">
-    <label for="date">Date (DD/MM/YYYY):</label>
-    <input type="text" id="date" th:field="*{date}" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" required>
-    <br>
+        <div class="form-group">
+            <label for="date">Date (DD/MM/YYYY):</label>
+            <input type="text" class="form-control" id="date" th:field="*{date}" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" required>
+        </div>
 
-    <label for="weekday">Weekday:</label>
-    <select id="weekday" th:field="*{weekday}" required>
-        <option th:value="''" th:text="Select"></option>
-        <option th:each="weekday : ${weekdays}"
-                th:value="${weekday.value}"
-                th:text="${weekday.value}" ></option>
-    </select>
-    <br>
+        <div class="form-group">
+            <label for="weekday">Weekday:</label>
+            <select class="form-control" id="weekday" th:field="*{weekday}" required>
+                <option th:value="''" th:text="Select"></option>
+                <option th:each="weekday : ${weekdays}"
+                        th:value="${weekday.value}"
+                        th:text="${weekday.value}"></option>
+            </select>
+        </div>
 
-    <label for="supervisor">Supervisor:</label>
-    <input type="text" id="supervisor" th:field="*{dtSupervisor}" required>
-    <br>
+        <div class="form-group">
+            <label for="supervisor">Supervisor:</label>
+            <input type="text" class="form-control" id="supervisor" th:field="*{dtSupervisor}" required>
+        </div>
 
-    <label for="dtManager">DT Manager:</label>
-    <input type="text" id="dtManager" th:field="*{dtManager}" required>
-    <br>
+        <div class="form-group">
+            <label for="dtManager">DT Manager:</label>
+            <input type="text" class="form-control" id="dtManager" th:field="*{dtManager}" required>
+        </div>
 
-    <button type="submit">Submit</button>
-</form>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and Popper.js (optional, but required for some Bootstrap components) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
