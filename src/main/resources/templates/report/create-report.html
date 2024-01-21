@@ -7,28 +7,24 @@
 </head>
 <body>
 
-<h2>User Form</h2>
+<h2>Report Form</h2>
 
-<form action="#" th:action="@{/submit-form}" th:object="${user}" method="post">
+<form action="#" th:action="@{/submit-form}" th:object="${report}" method="post">
     <label for="date">Date (DD/MM/YYYY):</label>
     <input type="text" id="date" th:field="*{date}" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" required>
     <br>
 
     <label for="weekday">Weekday:</label>
     <select id="weekday" th:field="*{weekday}" required>
-        <option value="">Select a weekday</option>
-        <option value="MONDAY">Monday</option>
-        <option value="TUESDAY">Tuesday</option>
-        <option value="WEDNESDAY">Wednesday</option>
-        <option value="THURSDAY">Thursday</option>
-        <option value="FRIDAY">Friday</option>
-        <option value="SATURDAY">Saturday</option>
-        <option value="SUNDAY">Sunday</option>
+        <option th:value="''" th:text="Select"></option>
+        <option th:each="weekday : ${weekdays}"
+                th:value="${weekday.value}"
+                th:text="${weekday.value}" ></option>
     </select>
     <br>
 
     <label for="supervisor">Supervisor:</label>
-    <input type="text" id="supervisor" th:field="*{supervisor}" required>
+    <input type="text" id="supervisor" th:field="*{dtSupervisor}" required>
     <br>
 
     <label for="dtManager">DT Manager:</label>
