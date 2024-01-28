@@ -11,7 +11,7 @@ import java.util.WeakHashMap;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ReportDTO {
+public class  ReportDTO {
     private Date date;
 
     private Weekday weekday;
