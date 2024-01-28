@@ -43,6 +43,18 @@
             background-color: #0056b3;
         }
     </style>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function addNewField() {
+            var container = document.getElementById('dynamicFieldsContainer');
+            var newField = document.createElement('input');
+            newField.type = 'text';
+            newField.name = 'employeeNames'; // Adjust the name as needed
+            container.appendChild(newField);
+        }
+        /*]]>*/
+    </script>
 </head>
 <body>
 
@@ -74,6 +86,11 @@
             <label for="dtManager">DT Manager:</label>
             <input type="text" class="form-control" id="dtManager" th:field="*{dtManager}" required>
         </div>
+
+        <div id="dynamicFieldsContainer"></div>
+
+        <!-- Button to add new fields -->
+        <button type="button" onclick="addNewField()">Add Employee</button>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -5,10 +5,9 @@ import com.demotechreport.demotechreportform.enums.Weekday;
 import com.demotechreport.demotechreportform.service.ReportService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/report")
@@ -27,8 +26,9 @@ public class ReportController {
    }
 
    @PostMapping("/submit-create-report")
-   private String saveReport(@ModelAttribute("report") ReportDTO reportDTO){
+   private String saveReport(@ModelAttribute("report") ReportDTO reportDTO, @RequestParam("employeeNames") List<String> employeeNames){
        reportService.save(reportDTO);
+       System.out.println(employeeNames);
        return "redirect:/report/create";
    }
 
