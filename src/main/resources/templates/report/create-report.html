@@ -46,6 +46,7 @@
         .section-divider {
             border-top: 2px solid #ccc; /* Change the color and style as needed */
             margin: 20px 0; /* Adjust spacing around the line */
+        }
     </style>
 
     <script th:inline="javascript">
@@ -78,6 +79,22 @@
             // Append the container to the dynamicFieldsContainer
             container.appendChild(fieldContainer);
         }
+
+        function appendText(inputField) {
+            var inputValue = inputField.value;
+            var vehicleValue = inputField.getAttribute('data-vehicle-value');
+            var combinedValue = vehicleValue + ' ' + inputValue;
+            inputField.setAttribute('data-combined-value', combinedValue);
+            updateHiddenField();
+        }
+
+        function updateHiddenField() {
+            var combinedValues = Array.from(document.querySelectorAll('[data-combined-value]'))
+                .map(inputField => inputField.getAttribute('data-combined-value'))
+                .filter(value => value !== null);
+
+            document.getElementById('combinedValues').value = combinedValues.join(',');
+        }
         /*]]>*/
     </script>
 </head>
@@ -85,16 +102,16 @@
 
 <div class="container">
     <form action="#" th:action="@{/report/submit-create-report}" th:object="${report}" method="post">
-        <h2 class="mb-4">Report Form</h2>
+        <h2 class="mb-4">Daily hours report - per project</h2>
 
         <div class="form-group">
             <label for="date">Date (DD/MM/YYYY):</label>
-            <input type="text" class="form-control" id="date" th:field="*{date}" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" required>
+            <input type="text" class="form-control" id="date" th:field="*{date}" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" >
         </div>
 
         <div class="form-group">
             <label for="weekday">Weekday:</label>
-            <select class="form-control" id="weekday" th:field="*{weekday}" required>
+            <select class="form-control" id="weekday" th:field="*{weekday}" >
                 <option th:value="''" th:text="Select"></option>
                 <option th:each="weekday : ${weekdays}"
                         th:value="${weekday}"
@@ -104,12 +121,12 @@
 
         <div class="form-group">
             <label for="supervisor">Supervisor:</label>
-            <input type="text" class="form-control" id="supervisor" th:field="*{dtSupervisor}" required>
+            <input type="text" class="form-control" id="supervisor" th:field="*{dtSupervisor}" >
         </div>
 
         <div class="form-group">
             <label for="dtManager">DT Manager:</label>
-            <input type="text" class="form-control" id="dtManager" th:field="*{dtManager}" required>
+            <input type="text" class="form-control" id="dtManager" th:field="*{dtManager}" >
         </div>
 
         <div class="section-divider"></div>
@@ -118,12 +135,26 @@
               <div class="col-md-4" th:each="vehicle : ${vehicles}">
                     <div class="form-group">
                         <label for="veh" th:text="${vehicle.value}"></label>
-                        <input type="text" class="form-control" id="veh">
+                        <input type="text" class="form-control" id="veh" th:data-vehicle-value="${vehicle.value}" oninput="appendText(this)">
                     </div>
               </div>
         </div>
 
+        <!-- Hidden input field to store the combined value -->
+        <input type="hidden" id="combinedValues" th:field="*{vehicle}" />
+
+
         <div class="section-divider"></div>
+
+        <div class="row">
+            <label class="col-md-3" for="shopping">Shopping:</label>
+            <input type="checkbox" id="shopping" th:field="*{shopping}" />
+            <label class="col-md-4" for="disposal">Disposal:</label>
+            <input type="checkbox" id="disposal" th:field="*{disposal}" />
+            <label class="col-md-4" for="scrap">Scrap:</label>
+            <input type="checkbox" id="scrap" th:field="*{scrap}" />
+        </div>
+
 
         <div id="dynamicFieldsContainer"></div>
 

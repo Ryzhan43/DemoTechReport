@@ -28,9 +28,9 @@ public class ReportController {
    }
 
    @PostMapping("/submit-create-report")
-   private String saveReport(@ModelAttribute("report") ReportDTO reportDTO, @RequestParam("employeeNames") List<String> employeeNames){
-       reportService.save(reportDTO);
-       System.out.println(employeeNames);
+   private String saveReport(@ModelAttribute("report") ReportDTO reportDTO){
+       System.out.println(reportDTO);
+       System.out.println(reportDTO.getVehicle().get(1));
        return "redirect:/report/create";
    }
 

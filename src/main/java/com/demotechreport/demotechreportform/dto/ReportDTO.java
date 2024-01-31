@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class  ReportDTO {
     private String dtSupervisor;
     private Integer projectNumber;
     private String dtManager;
-    private Vehicle vehicle;
+    private List<String> vehicle;
     private String address;
     private boolean shopping;
     private boolean disposal;
