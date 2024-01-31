@@ -22,7 +22,7 @@ public class  ReportDTO {
     private String dtSupervisor;
     private Integer projectNumber;
     private String dtManager;
-    private List<String> vehicle;
+    private List<String> vehicleDriver;
     private String address;
     private boolean shopping;
     private boolean disposal;

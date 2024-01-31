@@ -47,6 +47,17 @@
             border-top: 2px solid #ccc; /* Change the color and style as needed */
             margin: 20px 0; /* Adjust spacing around the line */
         }
+
+        #inputBlock input {
+            display: inline-block;
+            width: 80px;
+            margin-right: 10px;
+        }
+
+        #inputBlock label{
+            display: inline-block;
+            margin-right: 5px;
+        }
     </style>
 
     <script th:inline="javascript">
@@ -56,25 +67,65 @@
 
             // Create a container div for the label and input
             var fieldContainer = document.createElement('span');
+            fieldContainer.id = 'inputBlock';
             fieldContainer.style.display = 'inline-block';
 
             //--> Adding label
-            var newLabel = document.createElement('label');
-            newLabel.textContent = 'First Name: ';
-            fieldContainer.appendChild(newLabel);
+            var firstNameLabel = document.createElement('label');
+            firstNameLabel.textContent = 'First Name: ';
+            firstNameLabel.style.display = 'inline-block';
+            fieldContainer.appendChild(firstNameLabel);
 
             //adding input field
-            var newField = document.createElement('input');
-            newField.type = 'text';
-            newField.name = 'employeeNames';
-            fieldContainer.appendChild(newField);
+            var firstNameInput = document.createElement('input');
+            firstNameInput.type = 'text';
+            firstNameInput.name = 'employeeNames';
+            firstNameInput.style.display = 'inline-block';
+            fieldContainer.appendChild(firstNameInput);
 
-            //
-            var newField = document.createElement('input');
-            newField.type = 'text';
-            newLabel.textContent = 'Last name: ';
-            newField.name = 'employeeNames';
-            fieldContainer.appendChild(newField);
+            var lastNameLabel = document.createElement('label');
+            lastNameLabel.textContent = 'Last Name: ';
+            lastNameLabel.style.display = 'inline-block';
+            fieldContainer.appendChild(lastNameLabel);
+
+            var lastNameInput = document.createElement('input');
+            lastNameInput.type = 'text';
+            lastNameInput.name = 'employeeNames';
+            lastNameInput.style.display = 'inline-block';
+            fieldContainer.appendChild(lastNameInput);
+
+            var startTimeLabel = document.createElement('label');
+            startTimeLabel.textContent = 'Start Time: ';
+            startTimeLabel.style.display = 'inline-block';
+            fieldContainer.appendChild(startTimeLabel);
+
+            var startTimeInput = document.createElement('input');
+            startTimeInput.type = 'text';
+            startTimeInput.name = 'employeeNames';
+            startTimeInput.style.display = 'inline-block';
+            fieldContainer.appendChild(startTimeInput);
+
+            var endTimeLabel = document.createElement('label');
+            endTimeLabel.textContent = 'End Time: ';
+            endTimeLabel.style.display = 'inline-block';
+            fieldContainer.appendChild(endTimeLabel);
+
+            var endTimeInput= document.createElement('input');
+            endTimeInput.type = 'text';
+            endTimeInput.name = 'employeeNames';
+            endTimeInput.style.display = 'inline-block';
+            fieldContainer.appendChild(endTimeInput);
+
+            var transportationHoursLabel = document.createElement('label');
+            transportationHoursLabel.textContent = 'Transportation Time: ';
+            transportationHoursLabel.style.display = 'inline-block';
+            fieldContainer.appendChild(transportationHoursLabel);
+
+            var transportationHoursInput= document.createElement('input');
+            transportationHoursInput.type = 'text';
+            transportationHoursInput.name = 'employeeNames';
+            transportationHoursInput.style.display = 'inline-block';
+            fieldContainer.appendChild(transportationHoursInput);
 
             // Append the container to the dynamicFieldsContainer
             container.appendChild(fieldContainer);
@@ -141,10 +192,24 @@
         </div>
 
         <!-- Hidden input field to store the combined value -->
-        <input type="hidden" id="combinedValues" th:field="*{vehicle}" />
-
+        <input type="hidden" id="combinedValues" th:field="*{vehicleDriver}" />
 
         <div class="section-divider"></div>
+
+        <div class="form-group">
+            <label for="projectNum">Project #: </label>
+            <input type="text" class="form-control" id="projectNum" th:field="*{projectNumber}" >
+        </div>
+
+        <div class="form-group">
+            <label for="projectNum">Project address:</label>
+            <input type="text" class="form-control" id="address" th:field="*{address}" >
+        </div>
+
+        <div class="section-divider"></div>
+
+
+
 
         <div class="row">
             <label class="col-md-3" for="shopping">Shopping:</label>
@@ -154,6 +219,9 @@
             <label class="col-md-4" for="scrap">Scrap:</label>
             <input type="checkbox" id="scrap" th:field="*{scrap}" />
         </div>
+
+        <div class="section-divider"></div>
+        <div class="section-divider"></div>
 
 
         <div id="dynamicFieldsContainer"></div>
