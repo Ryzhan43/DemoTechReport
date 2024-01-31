@@ -42,16 +42,41 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .section-divider {
+            border-top: 2px solid #ccc; /* Change the color and style as needed */
+            margin: 20px 0; /* Adjust spacing around the line */
     </style>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
         function addNewField() {
             var container = document.getElementById('dynamicFieldsContainer');
+
+            // Create a container div for the label and input
+            var fieldContainer = document.createElement('span');
+            fieldContainer.style.display = 'inline-block';
+
+            //--> Adding label
+            var newLabel = document.createElement('label');
+            newLabel.textContent = 'First Name: ';
+            fieldContainer.appendChild(newLabel);
+
+            //adding input field
             var newField = document.createElement('input');
             newField.type = 'text';
-            newField.name = 'employeeNames'; // Adjust the name as needed
-            container.appendChild(newField);
+            newField.name = 'employeeNames';
+            fieldContainer.appendChild(newField);
+
+            //
+            var newField = document.createElement('input');
+            newField.type = 'text';
+            newLabel.textContent = 'Last name: ';
+            newField.name = 'employeeNames';
+            fieldContainer.appendChild(newField);
+
+            // Append the container to the dynamicFieldsContainer
+            container.appendChild(fieldContainer);
         }
         /*]]>*/
     </script>
@@ -86,6 +111,19 @@
             <label for="dtManager">DT Manager:</label>
             <input type="text" class="form-control" id="dtManager" th:field="*{dtManager}" required>
         </div>
+
+        <div class="section-divider"></div>
+
+        <div class="row">
+              <div class="col-md-4" th:each="vehicle : ${vehicles}">
+                    <div class="form-group">
+                        <label for="veh" th:text="${vehicle.value}"></label>
+                        <input type="text" class="form-control" id="veh">
+                    </div>
+              </div>
+        </div>
+
+        <div class="section-divider"></div>
 
         <div id="dynamicFieldsContainer"></div>
 
