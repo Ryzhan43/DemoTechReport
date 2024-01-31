@@ -1,6 +1,7 @@
 package com.demotechreport.demotechreportform.controller;
 
 import com.demotechreport.demotechreportform.dto.ReportDTO;
+import com.demotechreport.demotechreportform.enums.Vehicle;
 import com.demotechreport.demotechreportform.enums.Weekday;
 import com.demotechreport.demotechreportform.service.ReportService;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class ReportController {
     @GetMapping("/create")
    private String createReport(Model model){
         model.addAttribute("weekdays", Weekday.values());
+        model.addAttribute("vehicles", Vehicle.values());
         model.addAttribute("report", new ReportDTO());
        return "/report/create-report";
    }
