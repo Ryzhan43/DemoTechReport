@@ -6,8 +6,6 @@ public interface ReportService {
     void save(ReportDTO reportDTO);
     void delete(ReportDTO reportDTO);
     void update(ReportDTO reportDTO);
-
     ReportDTO findByDtSupervisor(String dtSupervisor);
-
     ReportDTO findUserById(Long source);
 }

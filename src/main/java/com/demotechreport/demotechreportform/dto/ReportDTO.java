@@ -20,13 +20,13 @@ public class  ReportDTO {
     private Date date;
     private Weekday weekday;
     private String dtSupervisor;
-    private Integer projectNumber;
     private String dtManager;
+    private Integer projectNumber;
     private List<String> vehicleDriver;
     private String address;
     private boolean shopping;
     private boolean disposal;
     private boolean scrap;
     private List<EmployeeHoursDTO> employeeHours;
-    private List<String> notes;
+    private String notes;
 }

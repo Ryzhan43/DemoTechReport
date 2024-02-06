@@ -2,15 +2,10 @@ package com.demotechreport.demotechreportform.entity;
 
 import com.demotechreport.demotechreportform.entity.common.BaseEntity;
 import com.demotechreport.demotechreportform.enums.Weekday;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,9 +15,22 @@ import java.util.Date;
 @Entity
 @Table(name = "reports")
 public class Report extends BaseEntity {
-//    private Date date;
+
     @Enumerated(EnumType.STRING)
     private Weekday weekday;
     private String dtSupervisor;
     private String dtManager;
+    private Integer projectNumber;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name= "vehicle_driver_id")
+    private List<VehicleDriver> vehicleDriver;
+    private String address;
+    private boolean shopping;
+    private boolean disposal;
+    private boolean scrap;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "report_id")
+    private List<EmployeeHours> employeeHours;
+    private String notes;
 }
