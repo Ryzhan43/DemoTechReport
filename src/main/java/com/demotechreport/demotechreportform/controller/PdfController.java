@@ -1,6 +1,6 @@
 package com.demotechreport.demotechreportform.controller;
 
-import com.demotechreport.demotechreportform.service.PdfGenerationService;
+import com.demotechreport.demotechreportform.service.impl.PdfGenerationService;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
