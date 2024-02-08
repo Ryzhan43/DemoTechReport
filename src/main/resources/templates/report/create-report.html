@@ -138,10 +138,18 @@
         }
 
         function appendText(inputField) {
-            var inputValue = inputField.value;
+            var inputValue = inputField.value.trim();
             var vehicleValue = inputField.getAttribute('data-vehicle-value');
-            var combinedValue = vehicleValue + ' ' + inputValue;
-            inputField.setAttribute('data-combined-value', combinedValue);
+
+            // Check if the input value is not empty
+            if (inputValue !== '') {
+                var combinedValue = vehicleValue + ' ' + inputValue;
+                inputField.setAttribute('data-combined-value', combinedValue);
+            } else {
+                // If input is empty, remove the data-combined-value attribute
+                inputField.removeAttribute('data-combined-value');
+            }
+
             updateHiddenField();
         }
 

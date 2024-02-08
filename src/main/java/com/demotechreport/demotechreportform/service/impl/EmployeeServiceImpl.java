@@ -15,7 +15,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, MapperUtil mapperUtil) {
         this.employeeRepository = employeeRepository;
-
         this.mapperUtil = mapperUtil;
     }
 

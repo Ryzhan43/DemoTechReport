@@ -2,10 +2,14 @@ package com.demotechreport.demotechreportform.service.impl;
 
 import com.demotechreport.demotechreportform.dto.ReportDTO;
 import com.demotechreport.demotechreportform.entity.Report;
+import com.demotechreport.demotechreportform.entity.VehicleDriver;
 import com.demotechreport.demotechreportform.mapper.MapperUtil;
 import com.demotechreport.demotechreportform.repository.ReportRepository;
 import com.demotechreport.demotechreportform.service.ReportService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -20,7 +24,18 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public void save(ReportDTO reportDTO) {
-        reportRepository.save((mapperUtil.convert(reportDTO, new Report())));
+        List<String> vehicleDriverListTemp = reportDTO.getVehicleDriver();
+        Report reportEnt = mapperUtil.convert(reportDTO, new Report());
+        List<VehicleDriver> vd = new ArrayList<>();
+
+        if(vehicleDriverListTemp.isEmpty() != true){
+            for(String vehicleDriverI : vehicleDriverListTemp){
+                vd.add(new VehicleDriver(vehicleDriverI));
+            }
+            reportEnt.setVehicleDriver(vd);
+        }
+
+        reportRepository.save(reportEnt);
     }
 
     @Override

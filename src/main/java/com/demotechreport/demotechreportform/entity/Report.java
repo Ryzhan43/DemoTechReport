@@ -22,7 +22,7 @@ public class Report extends BaseEntity {
     private String dtManager;
     private Integer projectNumber;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name= "vehicle_driver_id")
+    @JoinColumn(name= "report_id")
     private List<VehicleDriver> vehicleDriver;
     private String address;
     private boolean shopping;

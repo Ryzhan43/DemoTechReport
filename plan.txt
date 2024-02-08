@@ -1,0 +1,18 @@
+1) add attributes:
+    -vehicle: enum OK
+    -project: OK
+    -project address: OK
+    -employee: worker, supervisor, manager
+    -garbageDisposal: boolean (yes, no)
+    -shoppingRental: boolean
+    -if shoppingRental -> Yes : shoppingRentalType: String
+    -notes: String
+2) Create Employee: DTO and Entity
+    attributes:
+        -lastName
+        -firstName
+    service:
+        -
+
+
+3) Add back Require  attributes to create-form
