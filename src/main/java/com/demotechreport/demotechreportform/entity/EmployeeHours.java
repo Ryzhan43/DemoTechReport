@@ -3,11 +3,10 @@ package com.demotechreport.demotechreportform.entity;
 import com.demotechreport.demotechreportform.dto.EmployeeDTO;
 import com.demotechreport.demotechreportform.entity.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalTime;
+
 
 @Entity
 @Table(name = "employee_hours")
@@ -15,7 +14,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Data
 public class EmployeeHours extends BaseEntity {
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Employee employee;
     private Long startTime;
     private Long endTime;

@@ -7,8 +7,7 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -22,15 +21,13 @@ public class Report extends BaseEntity {
     private String dtManager;
     private Integer projectNumber;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name= "report_id")
     private List<VehicleDriver> vehicleDriver;
     private String address;
     private boolean shopping;
     private boolean disposal;
     private boolean scrap;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "report_id")
+    @OneToMany(mappedBy = "report",cascade = CascadeType.ALL)
     private List<EmployeeHours> employeeHours;
     private String notes;
 }
