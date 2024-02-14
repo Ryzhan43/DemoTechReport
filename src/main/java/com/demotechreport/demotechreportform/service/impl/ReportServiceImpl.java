@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -47,23 +48,28 @@ public class ReportServiceImpl implements ReportService {
         }
 
         //Persist EmployeeHours
-        List<EmployeeHoursDTO> employeeHoursDTOS = reportDTO.getEmployeeHours();
-        if(employeeHoursDTOS != null){
-            for (EmployeeHoursDTO employeeHour : employeeHoursDTOS) {
-                EmployeeDTO employeeDTO = employeeHour.getEmployeeDTO();
-                // Convert EmployeeDTO to Employee entity and save if needed
-                Employee employee = mapperUtil.convert(employeeDTO, new Employee());
-                if (employee.getId() == null) {
-                    employeeService.save(employeeDTO); // Assuming this saves the employee
-                }
+//                List<EmployeeHoursDTO> employeeHoursDTOS = reportDTO.getEmployeeHours();
+//
+//        if(employeeHoursDTOS != null){
+//            for (EmployeeHoursDTO employeeHour : employeeHoursDTOS) {
+//                EmployeeDTO employeeDTO = employeeHour.getEmployeeDTO();
+//                // Convert EmployeeDTO to Employee entity and save if needed
+//                Employee employee = mapperUtil.convert(employeeDTO, new Employee());
+////                if (employee.getId() == null) {
+////                    employeeService.save(employeeDTO); // Assuming this saves the employee
+////                }
+//
+//
+//                EmployeeHours empHoursTemp = mapperUtil.convert(employeeHour, new EmployeeHours());
+//                empHoursTemp.setEmployee(employee);
+//                reportEnt.getEmployeeHours().add(empHoursTemp);
+//
+//
+//            }
+//        }
 
-
-                EmployeeHours empHoursTemp = mapperUtil.convert(employeeHour, new EmployeeHours());
-                empHoursTemp.setEmployee(employee);
-                reportEnt.getEmployeeHours().add(empHoursTemp);
-
-
-            }
+        for(EmployeeHours employeeHours : reportEnt.getEmployeeHours()){
+            employeeHours.setReport(reportEnt);
         }
 
         reportRepository.save(reportEnt);

@@ -21,7 +21,7 @@ public class EmployeeHours extends BaseEntity {
     private Long travelTime;
     private LocalTime totalTime;
 
-    @ManyToOne
-    @JoinColumn(name = "report_id") // The foreign key column in the employee_hours table
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "report_id")
     private Report report;
 }

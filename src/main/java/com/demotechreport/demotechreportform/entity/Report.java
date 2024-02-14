@@ -5,6 +5,8 @@ import com.demotechreport.demotechreportform.enums.Weekday;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,6 +17,7 @@ import java.util.List;
 @Table(name = "reports")
 public class Report extends BaseEntity {
 
+    private Date date;
     @Enumerated(EnumType.STRING)
     private Weekday weekday;
     private String dtSupervisor;
@@ -27,7 +30,7 @@ public class Report extends BaseEntity {
     private boolean disposal;
     private boolean scrap;
 
-    @OneToMany(mappedBy = "report",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "report",cascade = CascadeType.ALL)
     private List<EmployeeHours> employeeHours;
     private String notes;
 }
