@@ -16,8 +16,8 @@ import java.time.LocalTime;
 public class EmployeeHours extends BaseEntity {
     @OneToOne(cascade = CascadeType.PERSIST)
     private Employee employee;
-    private Long startTime;
-    private Long endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private Long travelTime;
     private LocalTime totalTime;
 

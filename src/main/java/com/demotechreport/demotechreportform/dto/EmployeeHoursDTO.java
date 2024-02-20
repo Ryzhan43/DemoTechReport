@@ -12,8 +12,8 @@ import java.time.LocalTime;
 public class EmployeeHoursDTO {
     private Long id;
     private EmployeeDTO employeeDTO;
-    private Long startTime;
-    private Long endTime;
+    private String startTime;
+    private String endTime;
     private Long travelTime;
     private LocalTime totalTime;
 }

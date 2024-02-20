@@ -38,6 +38,7 @@ public class ReportController {
 
     @PostMapping("/submit-create-report")
     private String saveReport(@ModelAttribute("report") ReportDTO reportDTO){
+        System.out.println(reportDTO);
         reportService.save(reportDTO);
         return "redirect:/report/list-reports";
     }

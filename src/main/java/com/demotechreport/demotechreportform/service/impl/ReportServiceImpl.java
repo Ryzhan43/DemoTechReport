@@ -40,6 +40,7 @@ public class ReportServiceImpl implements ReportService {
         Report reportEnt = mapperUtil.convert(reportDTO, new Report());
         List<VehicleDriver> vd = new ArrayList<>();
 
+
         if(vehicleDriverListTemp.isEmpty() != true){
             for(String vehicleDriverI : vehicleDriverListTemp){
                 vd.add(new VehicleDriver(vehicleDriverI));
@@ -47,27 +48,10 @@ public class ReportServiceImpl implements ReportService {
             reportEnt.setVehicleDriver(vd);
         }
 
-        //Persist EmployeeHours
-//                List<EmployeeHoursDTO> employeeHoursDTOS = reportDTO.getEmployeeHours();
-//
-//        if(employeeHoursDTOS != null){
-//            for (EmployeeHoursDTO employeeHour : employeeHoursDTOS) {
-//                EmployeeDTO employeeDTO = employeeHour.getEmployeeDTO();
-//                // Convert EmployeeDTO to Employee entity and save if needed
-//                Employee employee = mapperUtil.convert(employeeDTO, new Employee());
-////                if (employee.getId() == null) {
-////                    employeeService.save(employeeDTO); // Assuming this saves the employee
-////                }
-//
-//
-//                EmployeeHours empHoursTemp = mapperUtil.convert(employeeHour, new EmployeeHours());
-//                empHoursTemp.setEmployee(employee);
-//                reportEnt.getEmployeeHours().add(empHoursTemp);
-//
-//
-//            }
-//        }
         if(reportEnt.getEmployeeHours() != null && !reportEnt.getEmployeeHours().isEmpty()) {
+            List<EmployeeHours> employeeHoursConverted = reportDTO.getEmployeeHours().stream().map(a->employeeHoursService.convertToEntity(a)).collect(Collectors.toUnmodifiableList());
+            reportEnt.setEmployeeHours(employeeHoursConverted);
+
             for (EmployeeHours employeeHours : reportEnt.getEmployeeHours()) {
                 employeeHours.setReport(reportEnt);
             }
