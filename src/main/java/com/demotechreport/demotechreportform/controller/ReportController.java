@@ -36,13 +36,22 @@ public class ReportController {
        return "/report/create-report";
    }
 
-   @PostMapping("/submit-create-report")
-   private String saveReport(@ModelAttribute("report") ReportDTO reportDTO){
-       System.out.println(reportDTO);
-//        employeeService.save(reportDTO.getEmployeeHours().get(0).getEmployeeDTO());
-//        employeeHoursService.save(reportDTO.getEmployeeHours().get(0));
-       reportService.save(reportDTO);
-       return "redirect:/report/create";
-   }
+    @PostMapping("/submit-create-report")
+    private String saveReport(@ModelAttribute("report") ReportDTO reportDTO){
+        reportService.save(reportDTO);
+        return "redirect:/report/list-reports";
+    }
 
+    @GetMapping("/list-reports")
+    private String showReportList(Model model){
+        model.addAttribute("reports", reportService.findAll());
+        return "/report/reports-list";
+    }
+
+    @PostMapping("/delete/{id}")
+    private String deleteReport(@PathVariable("id") Long id)
+    {
+        reportService.delete(id);
+        return "redirect:/report/list-reports";
+    }
 }

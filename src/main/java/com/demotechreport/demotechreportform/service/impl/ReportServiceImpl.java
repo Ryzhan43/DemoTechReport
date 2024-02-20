@@ -67,17 +67,26 @@ public class ReportServiceImpl implements ReportService {
 //
 //            }
 //        }
-
-        for(EmployeeHours employeeHours : reportEnt.getEmployeeHours()){
-            employeeHours.setReport(reportEnt);
+        if(reportEnt.getEmployeeHours() != null && !reportEnt.getEmployeeHours().isEmpty()) {
+            for (EmployeeHours employeeHours : reportEnt.getEmployeeHours()) {
+                employeeHours.setReport(reportEnt);
+            }
         }
 
         reportRepository.save(reportEnt);
     }
 
     @Override
-    public void delete(ReportDTO reportDTO) {
+    public void delete(Long id) {
+        ReportDTO reportDTO = findReportById(id);
+        reportRepository.delete(mapperUtil.convert(reportDTO, new Report()));
+    }
 
+    @Override
+    public ReportDTO findReportById(Long id) {
+        Report report = reportRepository.findById(id).get();
+
+        return mapperUtil.convert(report, new ReportDTO());
     }
 
     @Override
@@ -90,8 +99,9 @@ public class ReportServiceImpl implements ReportService {
         return mapperUtil.convert(reportRepository.findByDtSupervisor(dtSupervisor), new ReportDTO());
     }
 
+
     @Override
-    public ReportDTO findUserById(Long source) {
-        return mapperUtil.convert(reportRepository.findById(source).get(),new ReportDTO());
+    public List<ReportDTO> findAll() {
+        return reportRepository.findAll().stream().map(a->mapperUtil.convert(a, new ReportDTO())).collect(Collectors.toUnmodifiableList());
     }
 }

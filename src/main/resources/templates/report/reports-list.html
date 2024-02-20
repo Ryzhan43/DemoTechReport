@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            padding: 20px;
+        }
+        .inline-buttons .btn {
+            display: inline-block;
+            margin-right: 5px; /* Add some spacing between buttons */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Reports</h1>
+
+    <!-- Button to create a new report -->
+    <a th:href="@{/report/create}" class="btn btn-primary mb-3">Create New Report</a>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Project Date</th>
+            <th scope="col">Address</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="report : ${reports}">
+            <td th:text="${report.id}"></td>
+            <td th:text="${#dates.format(report.date, 'dd-MM-yyyy')}">2024-02-14</td>
+            <td th:text="${report.address}">Sample Address</td>
+            <td class="inline-buttons">
+                <!-- Button to delete a report -->
+                <form th:action="@{/report/delete/{id}(id=${report.id})}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+
+                <!-- Button to edit a report -->
+                <a th:href="@{/reports/edit/{id}(id=${report.id})}" class="btn btn-secondary">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

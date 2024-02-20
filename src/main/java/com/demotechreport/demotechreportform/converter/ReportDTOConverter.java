@@ -16,6 +16,6 @@ public class ReportDTOConverter implements Converter<Long, ReportDTO> {
 
     @Override
     public ReportDTO convert(Long id) {
-        return reportService.findUserById(id);
+        return reportService.findReportById(id);
     }
 }
