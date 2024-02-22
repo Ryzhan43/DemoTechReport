@@ -4,8 +4,11 @@ import com.demotechreport.demotechreportform.entity.common.BaseEntity;
 import com.demotechreport.demotechreportform.enums.Weekday;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -33,4 +36,6 @@ public class Report extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "report",cascade = CascadeType.ALL)
     private List<EmployeeHours> employeeHours;
     private String notes;
+
+
 }

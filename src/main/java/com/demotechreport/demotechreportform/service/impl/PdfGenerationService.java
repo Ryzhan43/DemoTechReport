@@ -26,13 +26,13 @@ public class PdfGenerationService {
 
 
 
-    public byte[] generatePdf(String dtSupervisor) throws IOException {
+    public byte[] generatePdf(Long id) throws IOException {
         Document document = new Document();
-        ByteArrayOutputStream   byteArrayOutputStream = new ByteArrayOutputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, byteArrayOutputStream);
 
         document.open();
-        document.add(new Paragraph("PDF Content: " + reportService.findByDtSupervisor(dtSupervisor).toString()));
+        document.add(new Paragraph("PDF Content: " + reportService.findReportById(id).toPdfString()));
         document.close();
 
         return byteArrayOutputStream.toByteArray();

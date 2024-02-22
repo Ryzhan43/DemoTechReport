@@ -40,6 +40,7 @@
             <td th:text="${#dates.format(report.date, 'dd-MM-yyyy')}">2024-02-14</td>
             <td th:text="${report.address}">Sample Address</td>
             <td class="inline-buttons">
+                <div class="btn-group" role="group" aria-label="Report Actions">
                 <!-- Button to delete a report -->
                 <form th:action="@{/report/delete/{id}(id=${report.id})}" method="post" class="d-inline">
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -47,6 +48,10 @@
 
                 <!-- Button to edit a report -->
                 <a th:href="@{/reports/edit/{id}(id=${report.id})}" class="btn btn-secondary">Edit</a>
+                <form th:action="@{/pdf/generate/{id}(id=${report.id})}" method="post">
+                    <button type="submit" class="btn btn-secondary">Print</button>
+                </form>
+                </div>
             </td>
         </tr>
         </tbody>
