@@ -6,10 +6,15 @@ import com.demotechreport.demotechreportform.enums.Weekday;
 import com.demotechreport.demotechreportform.service.EmployeeHoursService;
 import com.demotechreport.demotechreportform.service.EmployeeService;
 import com.demotechreport.demotechreportform.service.ReportService;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Controller
@@ -55,4 +60,5 @@ public class ReportController {
         reportService.delete(id);
         return "redirect:/report/list-reports";
     }
+
 }

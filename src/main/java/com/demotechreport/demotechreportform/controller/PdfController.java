@@ -3,6 +3,10 @@ package com.demotechreport.demotechreportform.controller;
 import com.demotechreport.demotechreportform.service.ReportService;
 import com.demotechreport.demotechreportform.service.impl.PdfGenerationService;
 import com.lowagie.text.DocumentException;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,15 +31,11 @@ public class PdfController {
     @PostMapping("/generate/{id}")
     public ResponseEntity<byte[]> generatePdf(@PathVariable("id") Long id) {
         try {
-            System.out.println("+++++++++++++++++++++++++++++");
-            System.out.println("+++++++++++++++++++++++++++++");
-            System.out.println("+++++++++++++++++++++++++++++");
-            System.out.println("+++++++++++++++++++++++++++++");
-            System.out.println(id);
             byte[] pdfBytes = pdfGenerationService.generatePdf(id);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("attachment", "example.pdf");
+//            headers.setContentDispositionFormData("attachment", "example.pdf");
+            headers.setContentDispositionFormData("attachment", "demo-tech-form.pdf");
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
         } catch (DocumentException e) {
             e.printStackTrace();
@@ -44,6 +44,7 @@ public class PdfController {
             throw new RuntimeException(e);
         }
     }
+
 
 
 }

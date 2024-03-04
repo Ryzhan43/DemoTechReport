@@ -38,10 +38,12 @@ public class  ReportDTO {
         //Date
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd:MM:yyyy");
         strMain.append("\nDate of the project: " + simpleDateFormat.format(this.date) + "\n");
-        System.out.println("+++++++++++++++");
-        System.out.println(strMain);
+
         //Weekday
         strMain.append("WEEK DAY: " + this.getWeekday() + "\n");
+
+        strMain.append("\n");
+        strMain.append("=================================\n");
 
         //Supervisor
         strMain.append("DT Supervisor: " + this.dtSupervisor+"\n");
@@ -49,10 +51,16 @@ public class  ReportDTO {
         //Manager
         strMain.append("Manager: " + this.dtManager+"\n");
 
+        strMain.append("\n");
+        strMain.append("================ CARS USED =================\n");
+
         //Vehicles
         for(String vehicleDriver1 : vehicleDriver){
-            strMain.append(vehicleDriver1 + "\n");
+            String str = vehicleDriver1.toString().substring(28);
+            strMain.append(str.substring(0, str.length() - 1) + "\n");
         }
+
+        strMain.append("=================================\n");
 
         //project number
         strMain.append("Project#: " + this.projectNumber+"\n");
@@ -94,4 +102,6 @@ public class  ReportDTO {
         System.out.println(strMain);
         return strMain.toString();
     }
+
+
 }
