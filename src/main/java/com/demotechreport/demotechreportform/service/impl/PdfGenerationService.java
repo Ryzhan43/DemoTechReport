@@ -17,6 +17,7 @@ import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
 import org.apache.pdfbox.pdmodel.graphics.color.PDGamma;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -85,34 +86,49 @@ public class PdfGenerationService {
         //Set up the Project number
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA, 14);
-        contentStream.newLineAtOffset(140, 542); // Set the position for adding text
+        contentStream.newLineAtOffset(140, 542);
         contentStream.showText(reportDTO.getProjectNumber().toString());
         contentStream.endText();
+
+        contentStream.setNonStrokingColor(Color.white); // Set color for the rectangle
+        contentStream.addRect(130, 590, 400, 20); // Define rectangle position and size
+        contentStream.fill();
+        contentStream.setNonStrokingColor(Color.white); // Set color for the rectangle
+        contentStream.addRect(90, 570, 400, 20); // Define rectangle position and size
+        contentStream.fill();
+
+        //Vehicles
+        contentStream.setNonStrokingColor(Color.black);
+        contentStream.beginText();
+        contentStream.setFont(PDType1Font.HELVETICA, 14);
+        contentStream.newLineAtOffset(120, 600);
+        contentStream.showText(reportDTO.showVehicles());
+        contentStream.endText();
+
 
         //Set up the Address
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA, 14);
-        contentStream.newLineAtOffset(280, 542); // Set the position for adding text
+        contentStream.newLineAtOffset(280, 542);
         contentStream.showText(reportDTO.getAddress().toString());
         contentStream.endText();
-
 
         PDColor red = new PDColor(new float[]{1, 0, 0}, PDDeviceRGB.INSTANCE);
 
         switch (reportDTO.getWeekday()) {
             case MONDAY:
                 contentStream.setNonStrokingColor(red);
-                drawEllipse(contentStream, 310, 670, 50, 25); // Position and size of the rectangle
+                drawEllipse(contentStream, 310, 670, 50, 25);
                 contentStream.fill();
                 break;
             case TUESDAY:
                 contentStream.setNonStrokingColor(red);
-                drawEllipse(contentStream, 380, 670, 57, 25); // Position and size of the rectangle
+                drawEllipse(contentStream, 380, 670, 57, 25);
                 contentStream.fill();
                 break;
             case WEDNESDAY:
                 contentStream.setNonStrokingColor(red);
-                drawEllipse(contentStream, 455, 670, 72, 25); // Position and size of the rectangle
+                drawEllipse(contentStream, 455, 670, 72, 25);
                 contentStream.fill();
                 break;
             case THURSDAY:
@@ -139,8 +155,26 @@ public class PdfGenerationService {
                 System.out.println("Invalid day");
 
         }
+        // SEt up Disposal
+        if(reportDTO.isDisposal()){
+            contentStream.setNonStrokingColor(red);
+            drawEllipse(contentStream, 242, 195, 30, 25);
+            contentStream.fill();
+        } else {
+            contentStream.setNonStrokingColor(red);
+            drawEllipse(contentStream, 279, 195, 25, 25);
+            contentStream.fill();
+        }
 
-
+        if(reportDTO.isShopping()){
+            contentStream.setNonStrokingColor(red);
+            drawEllipse(contentStream, 402, 195, 30, 25);
+            contentStream.fill();
+        } else {
+            contentStream.setNonStrokingColor(red);
+            drawEllipse(contentStream, 445, 195, 25, 25);
+            contentStream.fill();
+        }
 
 
         contentStream.close();

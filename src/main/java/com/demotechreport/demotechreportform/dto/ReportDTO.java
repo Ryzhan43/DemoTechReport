@@ -32,6 +32,17 @@ public class  ReportDTO {
     private List<EmployeeHoursDTO> employeeHours;
     private String notes;
 
+
+    public String showVehicles()
+    {
+        StringBuilder result = new StringBuilder();
+        for(String vehicleDriver1 : vehicleDriver){
+            String str = vehicleDriver1.toString().substring(28);
+            result.append(str.substring(0, str.length() - 1) + "    ");
+        }
+        return result.toString();
+    }
+
     public String toPdfString(){
         StringBuilder strMain = new StringBuilder();
 
