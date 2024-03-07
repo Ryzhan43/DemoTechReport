@@ -1,5 +1,7 @@
 package com.demotechreport.demotechreportform.service.impl;
 
+import com.demotechreport.demotechreportform.dto.EmployeeDTO;
+import com.demotechreport.demotechreportform.dto.EmployeeHoursDTO;
 import com.demotechreport.demotechreportform.dto.ReportDTO;
 import com.demotechreport.demotechreportform.entity.Report;
 import com.demotechreport.demotechreportform.service.ReportService;
@@ -58,15 +60,19 @@ public class PdfGenerationService {
         //Set up the Date
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
-        contentStream.newLineAtOffset(115, 670); // Set the position for adding text
-        contentStream.showText(String.valueOf(reportDTO.getDate().getDay()));
+        contentStream.newLineAtOffset(113, 670); // Set the position for adding text
+        Integer day = reportDTO.getDate().getDate();
+        String dayStr = day > 10 ? String.valueOf(day) : ("0" + day);
+        contentStream.showText(dayStr);
         contentStream.endText();
 
         //Set up the Month
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
-        contentStream.newLineAtOffset(155, 670); // Set the position for adding text
-        contentStream.showText(String.valueOf(reportDTO.getDate().getMonth()));
+        contentStream.newLineAtOffset(150, 670); // Set the position for adding text
+        Integer month = reportDTO.getDate().getDate();
+        String monthStr = month > 10 ? String.valueOf(month) : "0" + month;
+        contentStream.showText(monthStr);
         contentStream.endText();
 
         //Set up the Supervisor
@@ -86,7 +92,7 @@ public class PdfGenerationService {
         //Set up the Project number
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA, 14);
-        contentStream.newLineAtOffset(140, 542);
+        contentStream.newLineAtOffset(135, 542);
         contentStream.showText(reportDTO.getProjectNumber().toString());
         contentStream.endText();
 
@@ -113,6 +119,44 @@ public class PdfGenerationService {
         contentStream.showText(reportDTO.getAddress().toString());
         contentStream.endText();
 
+        System.out.println(reportDTO);
+
+        //Worker
+        int ty = 455;
+        for(EmployeeHoursDTO employeeHoursDTO : reportDTO.getEmployeeHours()) {
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA, 14);
+            contentStream.newLineAtOffset(80, ty);
+            EmployeeDTO employeeDTO = employeeHoursDTO.getEmployeeDTO();
+            contentStream.showText(employeeDTO.getFirstName() + " " + employeeDTO.getLastName());
+            contentStream.endText();
+
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA, 14);
+            contentStream.newLineAtOffset(255, ty);
+            contentStream.showText(employeeHoursDTO.getStartTime());
+            contentStream.endText();
+
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA, 14);
+            contentStream.newLineAtOffset(315, ty);
+            contentStream.showText(employeeHoursDTO.getEndTime());
+            contentStream.endText();
+
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA, 14);
+            contentStream.newLineAtOffset(395, ty);
+            contentStream.showText(String.valueOf(employeeHoursDTO.getTravelTime()));
+            contentStream.endText();
+
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA, 14);
+            contentStream.newLineAtOffset(440, ty);
+            contentStream.showText(String.valueOf(employeeHoursDTO.getTotalTime()));
+            contentStream.endText();
+            ty = ty - 25;
+        }
+        //Vehicle
         PDColor red = new PDColor(new float[]{1, 0, 0}, PDDeviceRGB.INSTANCE);
 
         switch (reportDTO.getWeekday()) {
@@ -165,7 +209,7 @@ public class PdfGenerationService {
             drawEllipse(contentStream, 279, 195, 25, 25);
             contentStream.fill();
         }
-
+        //Set up Shopping
         if(reportDTO.isShopping()){
             contentStream.setNonStrokingColor(red);
             drawEllipse(contentStream, 402, 195, 30, 25);
@@ -176,6 +220,13 @@ public class PdfGenerationService {
             contentStream.fill();
         }
 
+
+        contentStream.setNonStrokingColor(Color.black);
+        contentStream.beginText();
+        contentStream.setFont(PDType1Font.HELVETICA, 12);
+        contentStream.newLineAtOffset(82, 176);
+        contentStream.showText(reportDTO.getNotes().toString());
+        contentStream.endText();
 
         contentStream.close();
 
@@ -268,6 +319,8 @@ public class PdfGenerationService {
 
                 contentStream.close();
             }
+
+
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             document.save(outputStream);

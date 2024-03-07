@@ -68,9 +68,20 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public ReportDTO findReportById(Long id) {
-        Report report = reportRepository.findById(id).get();
 
-        return mapperUtil.convert(report, new ReportDTO());
+        Report report = reportRepository.findById(id).get();
+        report.getEmployeeHours().size();
+        ReportDTO reportDTO = mapperUtil.convert(report, new ReportDTO());
+
+        List<EmployeeHoursDTO> employeeHoursDTOS = new ArrayList<>();
+        for (EmployeeHours employeeHours : report.getEmployeeHours()) {
+            EmployeeDTO employeeDTO = mapperUtil.convert(employeeHours.getEmployee(), new EmployeeDTO());
+            EmployeeHoursDTO employeeHoursDTO = mapperUtil.convert(employeeHours, new EmployeeHoursDTO());
+            employeeHoursDTO.setEmployeeDTO(employeeDTO);
+            employeeHoursDTOS.add(employeeHoursDTO);
+        }
+        reportDTO.setEmployeeHours(employeeHoursDTOS);
+        return reportDTO;
     }
 
     @Override

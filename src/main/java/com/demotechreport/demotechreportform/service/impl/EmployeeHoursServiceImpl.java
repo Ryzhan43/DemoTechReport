@@ -8,9 +8,11 @@ import com.demotechreport.demotechreportform.repository.EmployeeHoursRepository;
 import com.demotechreport.demotechreportform.service.EmployeeHoursService;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
+import java.time.Instant;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -40,14 +42,30 @@ public class EmployeeHoursServiceImpl implements EmployeeHoursService {
         EmployeeHours employeeHoursConverted = new EmployeeHours();
         LocalTime startTime = LocalTime.parse(employeeHoursDTO.getStartTime());
         LocalTime endTime = LocalTime.parse(employeeHoursDTO.getEndTime());
-
+        Long travelTime = employeeHoursDTO.getTravelTime();
         employeeHoursConverted.setEmployee(mapperUtil.convert(employeeHoursDTO.getEmployeeDTO(), new Employee()));
 
         employeeHoursConverted.setStartTime(startTime);
         employeeHoursConverted.setEndTime(endTime);
         employeeHoursConverted.setTotalTime(calculateTotalTime(startTime, endTime));
+        employeeHoursConverted.setTravelTime(travelTime);
 
         return employeeHoursConverted;
+    }
+
+    public static LocalTime convertToLocalTime(long millis) {
+        // Convert long to Instant
+        Instant instant = Instant.ofEpochMilli(millis);
+
+        // Convert Instant to LocalTime using UTC time zone (you can change the time zone as needed)
+        LocalTime localTime = instant.atZone(ZoneId.of("UTC")).toLocalTime();
+
+        return localTime;
+    }
+
+    @Override
+    public List<EmployeeHours> findAllByReportId(Long id) {
+        return employeeHoursRepository.findAll();
     }
 
 

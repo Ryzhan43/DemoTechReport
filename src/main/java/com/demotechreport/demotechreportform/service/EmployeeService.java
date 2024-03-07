@@ -5,4 +5,5 @@ import com.demotechreport.demotechreportform.entity.Employee;
 
 public interface EmployeeService {
     void save(EmployeeDTO employeeDTO);
+
 }

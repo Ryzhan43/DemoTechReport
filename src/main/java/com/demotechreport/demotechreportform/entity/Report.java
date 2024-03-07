@@ -33,7 +33,7 @@ public class Report extends BaseEntity {
     private boolean disposal;
     private boolean scrap;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "report",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "report",cascade = CascadeType.ALL)
     private List<EmployeeHours> employeeHours;
     private String notes;
 
