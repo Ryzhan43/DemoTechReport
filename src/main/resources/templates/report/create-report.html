@@ -50,7 +50,7 @@
 
         #inputBlock input {
             display: inline-block;
-            width: 80px;
+            width: 10%;
             margin-right: 10px;
         }
 
@@ -58,6 +58,26 @@
             display: inline-block;
             margin-right: 5px;
         }
+
+        #dynamicFieldsContainer {
+            flex-direction: column; /* Stack items vertically */
+            width: 100%; /* Take up the full width of the container */
+            margin-bottom: 10px;
+        }
+
+        @media only screen and (max-width: 720px){
+            #inputBlock input {
+                display: inline-block;
+                width: 100%;
+                margin-right: 10px;
+            }
+            #inputBlock label{
+                display: inline-block;
+                margin-right: 5px;
+            }
+        }
+
+
     </style>
 
     <script th:inline="javascript">
@@ -129,12 +149,13 @@
             transportationHoursInput.style.display = 'inline-block';
             fieldContainer.appendChild(transportationHoursInput);
 
+            var sectionDivider = document.createElement("div");
+            sectionDivider.className='section-divider';
+            fieldContainer.appendChild(sectionDivider);
+
             // Append the container to the dynamicFieldsContainer
             container.appendChild(fieldContainer);
             employeeCounter++;
-
-            console.log(container)
-            console.log("!")
         }
 
         function appendText(inputField) {
@@ -221,8 +242,6 @@
         </div>
 
         <div class="section-divider"></div>
-
-
 
 
         <div class="row">

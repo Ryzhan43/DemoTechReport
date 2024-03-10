@@ -56,8 +56,8 @@ public class PdfGenerationService {
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
         contentStream.newLineAtOffset(150, 670); // Set the position for adding text
-        Integer month = reportDTO.getDate().getDate();
-        String monthStr = month > 10 ? String.valueOf(month) : "0" + month;
+        Integer month = reportDTO.getDate().getMonth() + 1;
+        String monthStr = month >= 10 ? String.valueOf(month) : "0" + month;
         contentStream.showText(monthStr);
         contentStream.endText();
 
