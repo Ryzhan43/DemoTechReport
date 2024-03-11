@@ -17,46 +17,60 @@
     </style>
 </head>
 <body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Reports</a>
+                    </li>
+                    <!-- Add more sidebar items here -->
+                </ul>
+            </div>
+        </nav>
 
-<div class="container">
+        <!-- Main content area -->
+        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+            <h1>Reports</h1>
 
-    <h1>Reports</h1>
+            <!-- Button to create a new report -->
+            <a th:href="@{/report/create}" class="btn btn-primary mb-3">Create New Report</a>
 
-    <!-- Button to create a new report -->
-    <a th:href="@{/report/create}" class="btn btn-primary mb-3">Create New Report</a>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Project Date</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="report : ${reports}">
+                    <td th:text="${report.id}"></td>
+                    <td th:text="${#dates.format(report.date, 'dd-MM-yyyy')}">2024-02-14</td>
+                    <td th:text="${report.address}">Sample Address</td>
+                    <td class="inline-buttons">
+                        <div class="btn-group" role="group" aria-label="Report Actions">
+                            <!-- Button to delete a report -->
+                            <form th:action="@{/report/delete/{id}(id=${report.id})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
 
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Project Date</th>
-            <th scope="col">Address</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="report : ${reports}">
-            <td th:text="${report.id}"></td>
-            <td th:text="${#dates.format(report.date, 'dd-MM-yyyy')}">2024-02-14</td>
-            <td th:text="${report.address}">Sample Address</td>
-            <td class="inline-buttons">
-                <div class="btn-group" role="group" aria-label="Report Actions">
-                <!-- Button to delete a report -->
-                <form th:action="@{/report/delete/{id}(id=${report.id})}" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-
-                <!-- Button to edit a report -->
-                <a th:href="@{/reports/edit/{id}(id=${report.id})}" class="btn btn-secondary">Edit</a>
-                <form th:action="@{/pdf/generate/{id}(id=${report.id})}" method="post">
-                    <button type="submit" class="btn btn-secondary">Print</button>
-                </form>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+                            <!-- Button to edit a report -->
+                            <a th:href="@{/reports/edit/{id}(id=${report.id})}" class="btn btn-secondary">Edit</a>
+                            <form th:action="@{/pdf/generate/{id}(id=${report.id})}" method="post">
+                                <button type="submit" class="btn btn-secondary">Print</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
 </div>
 
 <!-- Bootstrap JS -->
